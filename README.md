@@ -43,3 +43,72 @@ Cuando la aplicación se inicia, React toma el árbol de componentes y crea una 
 
 - **Biblioteca:** Herramienta que proporciona una funcionalidad específica
 - **Framework:** Proporciona un conjunto de herramientas y directrices para construir aplicaciones
+
+## Renderizado condicional
+
+Es una técnica usada para mostrar por pantalla componentes dependiendo de la evaluación de una condición. Existen várias formas de renderizar un elemento de forma condicional.
+
+- Usando el operador ternario, se puede evaluar una condicion y renderizar uno y otro elemento dependiendo de la evaluación de esa condición.
+- También se puede hacer esto es mediante la utilización del AND lógico (&&). La condición se evaluará y en caso de ser verdadera retornará la segunda parte de la expresión, mostrando por pantalla el mensaje deseado
+
+```jsx
+function Lista() {
+  const ciudades = [];
+
+  return (
+    <>
+      <h1>Lista de ciudades</h1>
+      {ciudades.length === 0 ? <p>No hay ciudades.</p> : null}
+      {ciudades.length === 0 && <p>No hay ciudades.</p>}
+    </>
+  );
+}
+```
+
+## Paso de propiedades de un componente padre a un componente hijo
+
+Para enviar propiedades de un componente superior o padre hacia un componente inferior o hijo en la estructura de árbol que crea React se hace lo siguiente.
+
+### Componente hijo
+
+El componente funcional hijo espera como parámetros de la función todos los valores que espera recibir desde quien está invocando esa funcion, es decir el componente padre. Existen dos formas de recibir esos parámetros:
+
+- Creando un objeto único que agrupa todos los parámetros
+- Desestructurando los parámetros para recibirlos uno a uno
+
+```jsx
+// recibiendo todos los parámetros en un objeto props
+function Child(props) { ... }
+
+// desestructurando los parámetros para recibirlos uno a uno
+function Child({ title, description, price }) { ... }
+```
+
+![componente hijo](./assets/react-child-component.png)
+
+### Componente padre
+
+El componente padre deberá enviar las propiedades que espera el componente hijo como argumentos, a través de atributos que tiene el componente hijo. Los atributos se deben llamar igual en el componente padre y en el hijo para que se cree la relación correctamente
+
+```jsx
+// uso del componente hijo desde el componente padre
+function Father() {
+  return (
+    <>
+      <Child
+        title={'Laptop'}
+        description={'The best laptop gaming in the market.'}
+        price={1800}
+      />
+    </>
+  );
+}
+```
+
+![componente padre](./assets/react-father-component.png)
+
+![relación entre componentes padre e hijo](./assets/react-father-child-relationship.png)
+
+## Escucha de eventos enviados desde un componente hijo a un componente padre
+
+## Hooks
