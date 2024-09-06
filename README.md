@@ -84,7 +84,7 @@ function Child(props) { ... }
 function Child({ title, description, price }) { ... }
 ```
 
-![componente hijo](./assets/react-child-component.png)
+![componente hijo recibiendo información desde un componente padre](./assets/react-child-component.png)
 
 ### Componente padre
 
@@ -105,10 +105,66 @@ function Father() {
 }
 ```
 
-![componente padre](./assets/react-father-component.png)
+![componente padre enviando información a un componente hijo](./assets/react-father-component.png)
 
 ![relación entre componentes padre e hijo](./assets/react-father-child-relationship.png)
 
-## Escucha de eventos enviados desde un componente hijo a un componente padre
+## Escucha de eventos enviados desde un componente hijo a un componente padre. Notificar una acción desde un componente hijo hacia un componente padre.
+
+Para poder escuchar desde un componente padre, eventos ejecutados dentro de un componente hijo, se deben enviar funciones que actuarán como callbacks desde el elemento padre hacia el hijo y esperar a que el hijo use esa función para finalmente notificar al componente padre que un evento ha ocurrido.
+
+### Componente padre
+
+El componente padre crea una funcion que por lo general tiene un nombre que inicia con `handle...`, el propósito de ésta función es el de manejar el evento generado desde el componente hijo, de allí que su nombre inicie con esta palabra. Es una convención que se sugiere seguir siempre. Esta función puede o no puede tener parámetros y será ejecutada desde el componente hijo, pero la lógica que se ejecutará estará implementada en el componente padre.
+
+```jsx
+function Father() {
+  // función que pretende manejar el evento click de un botón que está en el componente hijo.
+  // esta función espera recibir un mensaje como parámetro y posteriormente imprimir por consola el mensaje enviado desde el componente hijo.
+  // notar que el nombre de la función inicia con la palabra 'handle' ya que manejará la notificación enviada desde el componente hijo.
+  const handleClickButton = (message) => {
+    console.log(`Message from button: ${message}`);
+  };
+
+  return (
+    <>
+      {/* el componente hijo espera recibir la función en un argumento llamado 'onClickButton'.  La función es enviada al componente hijo pero no se ejecuta inmediatamente, por eso, no se deben colocar paréntesis () al final del nombre de la función */}
+      <Child onClickButton={handleClickButton} />
+    </>
+  );
+}
+
+export default Father;
+```
+
+![componente padre enviando una función a un componente hijo para recibir una notificación](./assets/react-father-notification.png)
+
+### Componente hijo
+
+El componente hijo espera un valor cualquiera en sus parámetros y por eso se sugiere que si lo que se espera es una función para notificarle de la ocurencia de un eventos al componente padre, este parámetro inicie con `on...`. Luego, esta función es usada en alguno de los elementos del componente hijo que pueda disparar una acción, como por ejemplo los eventos `onClick`, `onFocus`, `onKeyDown`, etc.
+
+```jsx
+// El componente hijo espera recibir un valor por parámetro, se sabe que es una función porque inicia con 'on'.
+function Child({ onClickButton }) {
+  return (
+    <>
+      <button
+        onClick={() => {
+          // La función enviada desde el padre, será ejecutada dentro del evento 'onClick' del botón. Por eso, en este momento si se colocan los paréntesis () que indican la ejecución de la función y se envían todos los argumentos requeridos para que le componente padre los reciba y actúe según la lógica implementada.
+          onClickButton('Hi, you click me');
+        }}
+      >
+        Click Me!
+      </button>
+    </>
+  );
+}
+```
+
+![componente hijo recibiendo una función desde el componente padre para disparar una notificación](./assets/react-child-notification.png)
+
+A continuación se explican en una secuencia los pasos efectuados durante la comunicación de los dos componentes.
+
+![componentes padre e hijo interactuando con una función](./assets/react-father-child-notification.png)
 
 ## Hooks
