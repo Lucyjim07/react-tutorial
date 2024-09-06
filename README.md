@@ -167,4 +167,29 @@ A continuación se explican en una secuencia los pasos efectuados durante la com
 
 ![componentes padre e hijo interactuando con una función](./assets/react-father-child-notification.png)
 
+## Componentes como hijos de otro componente.
+
+En react podemos crear componentes que tengan otros componentes internamente, permitiendo reutilización de código y también logrando adaptación y flexibilidad.
+El objetivo de pasar otros componentes o incluso código HTML dentro de otro componente permite crear componentes reutilizables y modificables con una amplia variedad de posibilidades. Esto se puede lograr pasando todos los tags en una sola propiedad que por convención se llamará children y haciendo que se renderice todo en un componente hijo. El componente hijo actuará como un contenedor y permitirá mantener el mismo diseño, El componente padre es el que decidirá qué elementos le enviará al componente hijo para ser renderizados. El componente padre podrá usar tantas veces como quiera el componente hijo cambiando su contenido.
+
+![componentes padre e hijo interactuando con contenido children](./assets/react-father-child-children.png)
+
 ## Hooks
+
+### useState hook
+
+### Diferencia entre State & Props
+
+**Props:**
+
+- Son las entradas que se pasan a un componente.
+- Son parecidas a los parámetros de una función.
+- Se deben tratar como inmutables (que no se pueden cambiar).
+
+**State:**
+
+- Información manejada por un componente que puede cambiar con el tiempo.
+- Son parecidas a las variables locales dentro de una función.
+- Se deben tratar como mutables (pueden cambiar con el tiempo).
+
+Algo que tienen en común las propiedades y el estado es que cada vez que cambian, React va a volver a renderizar el componente.
