@@ -220,3 +220,21 @@ function UseStateHook() {
 ```
 
 ![uso del hook useState](./assets/react-useState.png)
+
+### useEffect
+
+useEffect permite controlar posibles efectos secundarios de eventos en sus componentes. Algunos eventos que pueden probocar efectos secundarios son:
+
+- Obtener información de un API
+- Actualizar el DOM directamente
+- Uso de timers como SetTimeout y SetInterval
+
+El hook useEffect es una función que recibe 2 parámetros
+
+1. Un callback que se encargará de manejar todos los efectos secundarios que puedan ocurrir en el componente.
+2. Una lista de dependencias que pueden desencadenar efectos secundarios. Esta lista es opcional.
+   a. Si no se coloca, el componente se va a renderizar cada vez que se detecte un cambio en el estado o en las propiedades del componente. Este caso puede hacer que el componente se actualice de forma infinita.
+   b. Si se coloca una arreglo vacío ([]), el compponente solo se va a renderizar una vez, cuando éste es cargado.
+   c. Si se coloca algúna variable o lista de variables, el componente se va a renderizar cada vez que detecte un cambio en cualquiera de los elementos de esa lista.
+
+![uso del hook useEffect](./assets/react-useEffect.png)
