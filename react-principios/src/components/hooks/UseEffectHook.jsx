@@ -1,6 +1,6 @@
 import { useEffect, useState } from 'react';
 
-function useEfectHook() {
+function UseEffectHook() {
   const [count, setCount] = useState(0);
 
   useEffect(() => {
@@ -16,4 +16,4 @@ function useEfectHook() {
   );
 }
 
-export default useEfectHook;
+export default UseEffectHook;

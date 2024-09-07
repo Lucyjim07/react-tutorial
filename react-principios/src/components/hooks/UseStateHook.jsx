@@ -18,7 +18,7 @@ export default UseStateHook;
 // uso complejo del Hook useState
 // import { useState } from 'react';
 
-// function useStateHook() {
+// function UseStateHook() {
 //   const [developer, setDeveloper] = useState({
 //     name: 'Lucy',
 //     role: 'frontend',
@@ -47,4 +47,4 @@ export default UseStateHook;
 //   );
 // }
 
-// export default useStateHook;
+// export default UseStateHook;

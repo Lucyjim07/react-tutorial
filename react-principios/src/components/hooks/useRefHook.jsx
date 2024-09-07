@@ -2,7 +2,7 @@
 
 import { useEffect, useRef, useState } from 'react';
 
-function useRefHook() {
+function UseRefHook() {
   const [value, setValue] = useState(0);
 
   // explicación de uso del hook useEffect infinito
@@ -39,19 +39,21 @@ function useRefHook() {
   );
 }
 
-export default useRefHook;
+export default UseRefHook;
 
 /* --------------------------------------------- */
 
 // explicación de uso del hook useRef con elementos del DOM
 // import { useRef } from 'react';
 
-// function useRefHook() {
+// function UseRefHook() {
 //   const inputElement = useRef();
+
 //   const handleButtonClick = () => {
 //     console.log(inputElement);
 //     inputElement.current.style.background = 'blue';
 //   };
+
 //   return (
 //     <>
 //       <input type='text' ref={inputElement} />
@@ -60,4 +62,4 @@ export default useRefHook;
 //   );
 // }
 
-// export default useRefHook;
+// export default UseRefHook;
