@@ -174,11 +174,7 @@ El objetivo de pasar otros componentes o incluso código HTML dentro de otro com
 
 ![componentes padre e hijo interactuando con contenido children](./assets/react-father-child-children.png)
 
-## Hooks
-
-### useState hook
-
-### Diferencia entre State & Props
+## Diferencia entre State & Props
 
 **Props:**
 
@@ -193,3 +189,34 @@ El objetivo de pasar otros componentes o incluso código HTML dentro de otro com
 - Se deben tratar como mutables (pueden cambiar con el tiempo).
 
 Algo que tienen en común las propiedades y el estado es que cada vez que cambian, React va a volver a renderizar el componente.
+
+## Hooks
+
+### useState
+
+useState es un hook de React, el cual crea una variable de estado, la cual nos ayuda a rastrear el estado en los componentes y actualiza la interface de usuario cuando este cambia.
+
+Primero se debe entender porque se necesita el hook useState. Este hook permite que la interfaz se vuelva a renderizar en cada cambio que se genere de la variable que usa este hook, de lo contrario, si tenemos una variable común creada con javascript (`const color = 'red'`), React no podrá detectar los cambios efectuados en esta variable y no actualizará la pagina web.
+
+```jsx
+// importar el hook desde la biblioteca de React
+import { useState } from 'react';
+
+function UseStateHook() {
+  // el hook 'useState' retorna un arreglo que se puede desestructurar en dos elementos:
+  //  - el primero es la variable de estado
+  //  - el segundo es una función que ayuda a actualizar la variable de estado
+
+  const [color, setColor] = useState('Red');
+  // se crea una funcion que maneja el cambio de estado llamando a la función actualizadora dada por el hook useState
+  const handleColor = () => setColor('Blue');
+  return (
+    <>
+      <h1>My favorite color is {color}!</h1>
+      <button onClick={handleColor}>Blue</button>
+    </>
+  );
+}
+```
+
+![uso del hook useState](./assets/react-useState.png)
