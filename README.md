@@ -292,13 +292,28 @@ Este hook se caracteriza por retornar un valor memorizado.
 
 El hook useMemo recibe 2 parámetros
 
-- El primero parámetro es un callback que permite calcular el valor que se quiere guardar
+- El primero parámetro es un callback que permite calcular el valor que se quiere guardar.
 - El segundo parámetro es una lista de dependencias que permitirán recalcular el valor siempre que alguno de los valores de la lista sea modificado.
 
 El en el siguiente ejemplo se demuestra el uso del hook, en el cual, se tienen dos variables de estado, `number` y `counter`. La variable `number` es capturada con la ayuda de un elemento `input` y su valor nos ayudará a calcular la variable `result` declarada en la línea 12. Para calcular el valor de `result` se usa el hook useMemo que nos permite hacer cálculos y recordar su valor resultante siempre y cuando alguno de los elementos del arreglo de dependencias sea modificado. Para este ejemplo el callback del hook useMemo llama a la función que permite obtener el cuadrado del número ingresado en el `input` y el cual será recalculado cada vez que el valor de la variable `number` sea modificado. El estado de la variable `counter` puede cambiar tantas veces se quiera, y no afectará el cálculo de la variable `result`.
-![uso del hook useRef con elementos del DOM](./assets/react-useMemo.png)
+![uso del hook useMemo](./assets/react-useMemo.png)
 
 ### useCallback
 
+Este hook permite almacenar en cache la definición de una función entre renderizados. Quiere decir que no se van a crear múltiples instancias de la misma función cuando varios renderizados se realizan en secuencia. En lugar de crear una nueva instancia de la función, este hook devuelve la funcion memorizada entre los renderizados del componente.
+
 Este hook se caracteriza por retornar una función memorizada.
+
+El hook useMemo recibe 2 parámetros
+
+- El primero parámetro es un callback el cual será la función a memorizar.
+- El segundo parámetro es una lista de dependencias que permitirán actualizar el comportamiento de la función memorizada siempre que alguno de los valores de la lista sea modificado.
+
+Cuando se tienen componentes anidados, uno dentro de otro y se quiere evitar que los componentes hijos en la jerarquía de árbol se vuelvan a renderizar debido a que sus propiedades no han cambiado, se puede utilizar la función de React llamada `memo`, la cual se usa encerrando el componente hijo dentro de esta función `export default React.memo(ChildComponent);`
+
+El problema se presenta cuando se pasan funciones como parámetros de los componentes hijos, debido a que se va a crear una nueva función cada vez que se haga el renderizado del componente. Para evitar nuevos renderizados, se usa el hook de useCallback sobre la función que se quiere pasar al componente hijo tal como se muestra en el siguiente ejemplo.
+
+Dentro del componente padre, se importa un componente hijo, el cual no cambia nunca su estado, para evitar que el componente hijo se renderice cada vez que el componente padre lo hace, se marca el componente hijo con la función `memo` tal como se ve en la línea 12 del componente hijo. Si es necesario pasar funciones desde el componente padre al componente hijo, la función es creada usando el hook `useCallback` tal como se ve en la linea 7 del componente padre. Luego la función es pasada en un atributo hacia el componente hijo y solo se actualizará cuando alguno de los elementos del arreglo de dependencias es modificado
+![uso del hook useCallback](./assets/react-father-child-useCallback.png)
+
 ``
