@@ -233,8 +233,41 @@ El hook useEffect es una función que recibe 2 parámetros
 
 1. Un callback que se encargará de manejar todos los efectos secundarios que puedan ocurrir en el componente.
 2. Una lista de dependencias que pueden desencadenar efectos secundarios. Esta lista es opcional.
+
    a. Si no se coloca, el componente se va a renderizar cada vez que se detecte un cambio en el estado o en las propiedades del componente. Este caso puede hacer que el componente se actualice de forma infinita.
+
    b. Si se coloca una arreglo vacío ([]), el compponente solo se va a renderizar una vez, cuando éste es cargado.
+
    c. Si se coloca algúna variable o lista de variables, el componente se va a renderizar cada vez que detecte un cambio en cualquiera de los elementos de esa lista.
+
+```jsx
+// importar los hooks que se quieren usar
+import { useEffect, useState } from 'react';
+
+function useEfectHook() {
+  // este estado se utilizará para actualizar la página con un contador
+  const [count, setCount] = useState(0);
+
+  // el hook de useEffect va a manejar los efectos secundarios de usar un setTimeout, el cual va a incrementar el contador cada segundo
+  useEffect(
+    // callback: manejará el efecto secundario de usar la función setTimeout
+    () => {
+      setTimeout(() => {
+        setCount((prev) => prev + 1);
+      }, 1000);
+    },
+    // lista de dependencias: todas las dependencias que se quieren rastrear para ejecutar el hook, esta lista puede ser vacía []
+    [count]
+  );
+
+  return (
+    <>
+      <h1>I`ve rendered {count} times</h1>
+    </>
+  );
+}
+
+export default useEfectHook;
+```
 
 ![uso del hook useEffect](./assets/react-useEffect.png)
