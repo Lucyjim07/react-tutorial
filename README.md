@@ -271,3 +271,15 @@ export default useEfectHook;
 ```
 
 ![uso del hook useEffect](./assets/react-useEffect.png)
+
+### useRef
+
+useRef nos permite crear variables mutables las cuales no van a volver a renderizar el componente, se puede usar como una mejora en el rendimiento de la aplicación evitando que el componente vuelva a renderizarse cuando una variable cambia. Este hook también es usado para acceder a los elementos del DOM y con ello dar la posibilidad de manipular determinados elementos.
+
+A continuación se muestran sus dos usos.
+
+En la siguiente imágen se ve que en la línea 5 se crea una variable con el uso del hook useRef y su valor es inicializado en 0. luego, en la linea 7 se hace uso del hook useEffect para que cada vez que el componente es renderizado incremente el valor de la variable referenciada en 1. El valor de esta variable se encuentra en la propiedad `current`. Finalmente en la línea 16 se muestra en la pantalla el valor que tiene la variable referenciada. De esta forma se evita que el componente se vuelva a renderizar cada vez que el valor de `count` es modificado.
+![uso del hook useRef con variables](./assets/react-useRef-variable.png)
+
+En el siguiente ejemplo de uso del hook useRef, se ve que en la linea 4 se crea una constante para guardar el elemento `input` que se encuentra en el DOM, finalmente en la linea 13, como uno de sus atributos se coloca la palabra `ref` y se asigna el elemento actual a la variable creada previamente. Se pueden usar eventos para manipular y cambiar el estado del elemento capturado, tal como lo hace la función implementada en la linea 6, la cual es llamada por el evento `onClick` del botón.
+![uso del hook useRef con elementos del DOM](./assets/react-useRef-DOM-element.png)
