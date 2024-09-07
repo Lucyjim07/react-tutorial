@@ -283,3 +283,22 @@ En la siguiente imágen se ve que en la línea 5 se crea una variable con el uso
 
 En el siguiente ejemplo de uso del hook useRef, se ve que en la linea 4 se crea una constante para guardar el elemento `input` que se encuentra en el DOM, finalmente en la linea 13, como uno de sus atributos se coloca la palabra `ref` y se asigna el elemento actual a la variable creada previamente. Se pueden usar eventos para manipular y cambiar el estado del elemento capturado, tal como lo hace la función implementada en la linea 6, la cual es llamada por el evento `onClick` del botón.
 ![uso del hook useRef con elementos del DOM](./assets/react-useRef-DOM-element.png)
+
+### useMemo
+
+El hook useMemo retorna un valor memorizado. Es parecido a almacenar en cache un valor que no necesita ser recalculado. El hook useMemo solo se ejecuta cuando una de sus dependencias es actualizado y se puede mejorar el rendimiento de la aplicación evitando rehacer ciertos cálculos o volver a ejecutar otras tareas.
+
+Este hook se caracteriza por retornar un valor memorizado.
+
+El hook useMemo recibe 2 parámetros
+
+- El primero parámetro es un callback que permite calcular el valor que se quiere guardar
+- El segundo parámetro es una lista de dependencias que permitirán recalcular el valor siempre que alguno de los valores de la lista sea modificado.
+
+El en el siguiente ejemplo se demuestra el uso del hook, en el cual, se tienen dos variables de estado, `number` y `counter`. La variable `number` es capturada con la ayuda de un elemento `input` y su valor nos ayudará a calcular la variable `result` declarada en la línea 12. Para calcular el valor de `result` se usa el hook useMemo que nos permite hacer cálculos y recordar su valor resultante siempre y cuando alguno de los elementos del arreglo de dependencias sea modificado. Para este ejemplo el callback del hook useMemo llama a la función que permite obtener el cuadrado del número ingresado en el `input` y el cual será recalculado cada vez que el valor de la variable `number` sea modificado. El estado de la variable `counter` puede cambiar tantas veces se quiera, y no afectará el cálculo de la variable `result`.
+![uso del hook useRef con elementos del DOM](./assets/react-useMemo.png)
+
+### useCallback
+
+Este hook se caracteriza por retornar una función memorizada.
+``
