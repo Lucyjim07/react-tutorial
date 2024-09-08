@@ -192,11 +192,22 @@ Algo que tienen en común las propiedades y el estado es que cada vez que cambia
 
 ## Hooks
 
+Los hooks permiten usar diferentes funcionalidades de React en sus componentes. La documentación official de los hooks se pueden encontrar en este [link](https://react.dev/reference/react/hooks) y está clasificada de la siguiente manera.
+
+- **State Hooks:** Permiten a los componentes _recordar información._ Para agregar estados a los compnentes use los hook `🟢useState` o `🟢useReducer`.
+- **Context Hooks:** Los contextos permiten que los componentes _reciban información de padres distantes sin la necesidad de pasarla como props._ Para este propósito puede usar el hook `🟢useContext`.
+- **Ref Hooks:** Las referencias permiten que los componentes _mantengan alguna información que no es usada para renderizar la interfaz,_ como por ejemplo un nodo del DOM. Para agregar referencias puede usar los hooks de `🟢useRef` o `🟠useImperativeHandle`.
+- **Effect Hooks:** Estos hooks permiten que los componentes se _conecten y se sincronicen con sistemas externos._ Esto incluye tratar con llamados a través de la red, DOM del navegador, animaciones y otro código que no sea parte de React. Para manejar efectos puede usar los hooks de `🟢useEffect`, `🟠useLayoutEffect` o `🟠useInsertionEffect`.
+- **Performance Hooks:** Una forma de mejorar el rendimiento de las aplicaciones de React es evitando que los componentes se rendericen de forma innecesaria. Esto se logra diciendole a React que reuse algún calculo memorizado o que no renderice los componentes si la información no ha sido modificada. Para mejorar el rendimiento puede usar los hooks de `🟢useMemo`, `🟢useCallback`, `🟠useTransition` o `🟠useDeferredValue`.
+- **Other Hooks:** Los siguientes hooks no son usados comunmente en aplicaciones. `🟠useDebugValue`, `🟠useId`, `🟠useSyncExternalStore` o `🟠useActionState`.
+
+_Nota: los hooks marcados con 🟢 son altamente utilizados, mientras que los hooks que tienen un 🟠 son poco o rara vez usados o tienen alguna salvedad en su uso._
+
 ### useState
 
-useState es un hook de React, el cual crea una variable de estado, la cual nos ayuda a rastrear el estado en los componentes y actualiza la interface de usuario cuando este cambia.
+`useState` es un hook de React que crea una variable de estado, la cual nos ayuda a rastrear el estado en los componentes y actualiza la interface de usuario cuando este cambia.
 
-Primero se debe entender porque se necesita el hook useState. Este hook permite que la interfaz se vuelva a renderizar en cada cambio que se genere de la variable que usa este hook, de lo contrario, si tenemos una variable común creada con javascript (`const color = 'red'`), React no podrá detectar los cambios efectuados en esta variable y no actualizará la pagina web.
+Este hook permite que la interfaz se vuelva a renderizar en cada cambio del valor de la variable que usa este hook, de lo contrario, si tenemos una variable común creada con javascript (`const color = 'red'`), React no podrá detectar los cambios efectuados en esta variable y no actualizará la interfaz de usuario.
 
 ```jsx
 // importar el hook desde la biblioteca de React
@@ -223,22 +234,22 @@ function UseStateHook() {
 
 ### useEffect
 
-useEffect permite controlar posibles efectos secundarios de eventos en sus componentes. Algunos eventos que pueden probocar efectos secundarios son:
+`useEffect` permite controlar posibles efectos secundarios de eventos usados en los componentes. Algunos eventos que pueden provocar efectos secundarios son:
 
 - Obtener información de un API
 - Actualizar el DOM directamente
 - Uso de timers como SetTimeout y SetInterval
 
-El hook useEffect es una función que recibe 2 parámetros
+El hook `useEffect` es una función que recibe 2 parámetros
 
-1. Un callback que se encargará de manejar todos los efectos secundarios que puedan ocurrir en el componente.
-2. Una lista de dependencias que pueden desencadenar efectos secundarios. Esta lista es opcional.
+- Un callback que se encargará de manejar todos los efectos secundarios que puedan ocurrir en el componente.
+- Una lista de dependencias que pueden desencadenar efectos secundarios. Esta lista es opcional.
 
-   a. Si no se coloca, el componente se va a renderizar cada vez que se detecte un cambio en el estado o en las propiedades del componente. Este caso puede hacer que el componente se actualice de forma infinita.
+  a. Si no se coloca, el componente se va a renderizar cada vez que se detecte un cambio en el estado o en las propiedades del componente. Este caso puede hacer que el componente se actualice de forma infinita.
 
-   b. Si se coloca una arreglo vacío ([]), el compponente solo se va a renderizar una vez, cuando éste es cargado.
+  b. Si se coloca una arreglo vacío ([]), el compponente solo se va a renderizar una vez, cuando éste es cargado.
 
-   c. Si se coloca algúna variable o lista de variables, el componente se va a renderizar cada vez que detecte un cambio en cualquiera de los elementos de esa lista.
+  c. Si se coloca algúna variable o lista de variables, el componente se va a renderizar cada vez que detecte un cambio en cualquiera de los elementos de esa lista.
 
 ```jsx
 // importar los hooks que se quieren usar
@@ -274,28 +285,28 @@ export default useEfectHook;
 
 ### useRef
 
-useRef nos permite crear variables mutables las cuales no van a volver a renderizar el componente, se puede usar como una mejora en el rendimiento de la aplicación evitando que el componente vuelva a renderizarse cuando una variable cambia. Este hook también es usado para acceder a los elementos del DOM y con ello dar la posibilidad de manipular determinados elementos.
+`useRef` nos permite crear variables mutables las cuales no van a volver a renderizar el componente, se puede usar como una mejora en el rendimiento de la aplicación evitando que el componente vuelva a renderizarse cuando una variable cambia. Este hook también es usado para acceder a los elementos del DOM y con ello dar la posibilidad de manipular determinados elementos.
 
 A continuación se muestran sus dos usos.
 
-En la siguiente imágen se ve que en la línea 5 se crea una variable con el uso del hook useRef y su valor es inicializado en 0. luego, en la linea 7 se hace uso del hook useEffect para que cada vez que el componente es renderizado incremente el valor de la variable referenciada en 1. El valor de esta variable se encuentra en la propiedad `current`. Finalmente en la línea 16 se muestra en la pantalla el valor que tiene la variable referenciada. De esta forma se evita que el componente se vuelva a renderizar cada vez que el valor de `count` es modificado.
+En la siguiente imágen se ve que en la línea 5 se crea una variable con el uso del hook `useRef` y su valor es inicializado en 0. luego, en la linea 7 se hace uso del hook `useEffect` para que cada vez que el componente es renderizado incremente el valor de la variable referenciada con el hook. El valor de esta variable se encuentra en la propiedad `current`. Finalmente en la línea 16 se muestra en la pantalla el valor que tiene la variable referenciada. De esta forma se evita que el componente se vuelva a renderizar cada vez que el valor de `count` es modificado.
 ![uso del hook useRef con variables](./assets/react-useRef-variable.png)
 
-En el siguiente ejemplo de uso del hook useRef, se ve que en la linea 4 se crea una constante para guardar el elemento `input` que se encuentra en el DOM, finalmente en la linea 13, como uno de sus atributos se coloca la palabra `ref` y se asigna el elemento actual a la variable creada previamente. Se pueden usar eventos para manipular y cambiar el estado del elemento capturado, tal como lo hace la función implementada en la linea 6, la cual es llamada por el evento `onClick` del botón.
+En el siguiente ejemplo de uso del hook `useRef`, se ve que en la linea 4 se crea una constante para guardar el elemento `input` que se encuentra en el DOM, finalmente en la linea 13, como uno de sus atributos se coloca la palabra `ref` y se asigna el elemento actual a la variable creada previamente. Se pueden usar eventos para manipular y cambiar el estado del elemento capturado, tal como lo hace la función implementada en la linea 6, la cual es llamada por el evento `onClick` del botón.
 ![uso del hook useRef con elementos del DOM](./assets/react-useRef-DOM-element.png)
 
 ### useMemo
 
-El hook useMemo retorna un valor memorizado. Es parecido a almacenar en cache un valor que no necesita ser recalculado. El hook useMemo solo se ejecuta cuando una de sus dependencias es actualizado y se puede mejorar el rendimiento de la aplicación evitando rehacer ciertos cálculos o volver a ejecutar otras tareas.
+El hook `useMemo` retorna un valor memorizado. Es parecido a almacenar en cache un valor que no necesita ser recalculado. El hook `useMemo` solo se ejecuta cuando una de sus dependencias es actualizado y se puede mejorar el rendimiento de la aplicación evitando rehacer ciertos cálculos o volver a ejecutar otras tareas.
 
 Este hook se caracteriza por retornar un valor memorizado.
 
-El hook useMemo recibe 2 parámetros
+El hook `useMemo` recibe 2 parámetros
 
 - El primero parámetro es un callback que permite calcular el valor que se quiere guardar.
-- El segundo parámetro es una lista de dependencias que permitirán recalcular el valor siempre que alguno de los valores de la lista sea modificado.
+- El segundo parámetro es una lista de dependencias que permitirán recalcular el valor siempre que alguno de los valores de la lista de dependencias sea modificado.
 
-El en el siguiente ejemplo se demuestra el uso del hook, en el cual, se tienen dos variables de estado, `number` y `counter`. La variable `number` es capturada con la ayuda de un elemento `input` y su valor nos ayudará a calcular la variable `result` declarada en la línea 12. Para calcular el valor de `result` se usa el hook useMemo que nos permite hacer cálculos y recordar su valor resultante siempre y cuando alguno de los elementos del arreglo de dependencias sea modificado. Para este ejemplo el callback del hook useMemo llama a la función que permite obtener el cuadrado del número ingresado en el `input` y el cual será recalculado cada vez que el valor de la variable `number` sea modificado. El estado de la variable `counter` puede cambiar tantas veces se quiera, y no afectará el cálculo de la variable `result`.
+El en el siguiente ejemplo se demuestra el uso del hook, en el cual, se tienen dos variables de estado, `number` y `counter`. La variable `number` es capturada con la ayuda de un elemento `input` y su valor nos ayudará a calcular la variable `result` declarada en la línea 12. Para calcular el valor de `result` se usa el hook `useMemo` que nos permite recordar el valor cálculado. Éste cálculo se volverá a efectuar siempre y cuando alguno de los elementos del arreglo de dependencias sea modificado. Para este ejemplo el callback del hook `useMemo` llama a la función que permite obtener el cuadrado del número ingresado en el `input` y el cual será recalculado cada vez que el valor de la variable `number` sea modificado. El estado de la variable `counter` puede cambiar tantas veces se quiera, y no afectará el cálculo de la variable `result`.
 ![uso del hook useMemo](./assets/react-useMemo.png)
 
 ### useCallback
@@ -304,23 +315,23 @@ Este hook permite almacenar en cache la definición de una función entre render
 
 Este hook se caracteriza por retornar una función memorizada.
 
-El hook useMemo recibe 2 parámetros
+El hook `useCallback` recibe 2 parámetros
 
 - El primero parámetro es un callback el cual será la función a memorizar.
 - El segundo parámetro es una lista de dependencias que permitirán actualizar el comportamiento de la función memorizada siempre que alguno de los valores de la lista sea modificado.
 
 Cuando se tienen componentes anidados, uno dentro de otro y se quiere evitar que los componentes hijos en la jerarquía de árbol se vuelvan a renderizar debido a que sus propiedades no han cambiado, se puede utilizar la función de React llamada `memo`, la cual se usa encerrando el componente hijo dentro de esta función `export default React.memo(ChildComponent);`
 
-El problema se presenta cuando se pasan funciones como parámetros de los componentes hijos, debido a que se va a crear una nueva función cada vez que se haga el renderizado del componente. Para evitar nuevos renderizados, se usa el hook de useCallback sobre la función que se quiere pasar al componente hijo tal como se muestra en el siguiente ejemplo.
+El problema se presenta cuando se pasan funciones como parámetros de los componentes hijos, debido a que se va a crear una nueva función cada vez que se haga el renderizado del componente. Para evitar nuevos renderizados, se usa el hook de `useCallback` sobre la función que se quiere pasar al componente hijo tal como se muestra en el siguiente ejemplo.
 
 Dentro del componente padre, se importa un componente hijo, el cual no cambia nunca su estado, para evitar que el componente hijo se renderice cada vez que el componente padre lo hace, se marca el componente hijo con la función `memo` tal como se ve en la línea 12 del componente hijo. Si es necesario pasar funciones desde el componente padre al componente hijo, la función es creada usando el hook `useCallback` tal como se ve en la linea 7 del componente padre. Luego la función es pasada en un atributo hacia el componente hijo y solo se actualizará cuando alguno de los elementos del arreglo de dependencias es modificado
 ![uso del hook useCallback](./assets/react-father-child-useCallback.png)
 
 ### useContext
 
-El hook useContext permite acceder a la información desde cualquier componente sin la necesidad de pasarla como propiedades a ningún componente anidado en cualquier nivel que se encuentre. useContext es usado para manejar información global en una aplicación React.
+El hook `useContext` permite acceder a la información desde cualquier componente sin la necesidad de pasarla como propiedades a ningún componente anidado en cualquier nivel que se encuentre. `useContext` es usado para manejar información global en una aplicación React.
 
-Para usar el hook useContext se pueden seguir los siguientes pasos:
+Para usar el hook `useContext` se pueden seguir los siguientes pasos:
 
 1. Crear el contexto que se quiere pasar a través de toda la aplicación.
 2. Proveer a la aplicación de React con el contexto creado.
@@ -331,19 +342,18 @@ La creación del contexto se hace mediante la utilización de la función `creat
 Este contexto actúa como contenedor de todos los elementos hijos que se le pasen, de este modo, al estar encerrando a otros componentes, el contexto puede ser accesible por todos los componentes internos. Tanto el contexto como un proveedor del contexto son exportados de este archivo.
 ![creación del contexto](./assets/react-useContext-AppContext.png)
 
-La configuración y aplicación del contexto se hace en el archivo principal de renderizado de la aplicación, el archivo `main.jsx`. Se importa el contexto creado anteriormente y se envuelve la aplicación con este componente, permitiendo que toda la aplicación pueda tener acceso a los valores guardados en el contexto.
+La configuración y aplicación del contexto se hace en el archivo principal de renderizado de la aplicación, el archivo `main.jsx`. Se importa el proveedor del contexto creado anteriormente y se envuelve la aplicación con este componente, permitiendo que toda la aplicación pueda tener acceso a los valores guardados en el contexto.
 ![proveer a la aplicación React con el contexto creado](./assets/react-useContext-ProvideContext.png)
 
-Finalmente desde cualquier componente que se encuentre dentro de la aplicación se puede acceder a los valores guardados dentro del contexto haciendo uso del hook `useContext` e indicando cúal es el contexto al que se quiere acceder, en este caso al contexto creado en el primer paso y de nombre `AppContext`. Se puede verificar el uso del hook en la linea 5. Desestructurando el contenido, se puede recuperar solamente los valores que necesitemos en cada uno de los componentes y luego pueden ser usados como valores para ser usados en el componente que consume el contexto.
+Finalmente desde cualquier componente que se encuentre dentro de la aplicación se puede acceder a los valores guardados dentro del contexto haciendo uso del hook `useContext` e indicando cúal es el contexto al que se quiere acceder, en este caso al contexto creado en el primer paso y de nombre `AppContext`. Se puede verificar el uso del hook en la linea 5. Desestructurando el contenido, se puede recuperar solamente los valores que necesitemos en cada uno de los componentes y luego pueden ser usados como valores en el componente que consume el contexto.
 ![consumo del contexto](./assets/react-useContext-ConsumeContext.png)
 
-En la siguiente imágen se puede ver la relación entre los 3 componentes afectados y como es el flujo de importaciones y exportaciones de los elementos usados con el hook `useContext`
-
+En la siguiente imágen se puede ver la relación entre los 3 componentes afectados y cuál es el flujo de importaciones y exportaciones de los elementos usados con el hook `useContext`
 ![flujo de importación exportación elementos del contexto](./assets/react-useContext-Flow.png)
 
 ### useReducer
 
-`useReducer` es similar a `useState` pero en lugar de proveer un estado y una función para asignar ese estado, este hook provee un estado y una función de despacho (dispatch function).
+`useReducer` es similar a `useState` pero en lugar de proveer un estado y una función para modificar ese estado, este hook provee un estado y una función de despacho (dispatch function).
 
 El hook `useReducer` acepta 2 parámetros.
 
@@ -359,7 +369,7 @@ En la línea 14 se ve el uso del hook `useReducer` el cual recibe por parámetro
 
 Finalmente tanto como el estado actual como la función de despacho que ayuda a modificar el estado puede ser usado en el componente. `state` al ser un objeto, se debe acceder a sus propiedades con la notación punto `state.count`. La función `dispatch` envía por parámetro un objeto con el tipo que se quiere evaluar (`dispatch({ type: 'tipo-evaluado-switch-case'})`) y posteriormente puede ser ejecutado por la función reductora.
 
-La función `dispatch` también puede ser usada para enviar información a la función reductora, mediante la propiedad `payload` (`dispatch({ payload: 'valor-u-objeto' })`), tal como se muestra en la linea 26; este valor llegará a la función reductora en el parámetro action y podrá ser recuperado y procesado tal como se hace en la línea 9 en la cual se asigna el valor del `payload` al estado en su propiedad `count`
+La función `dispatch` también puede ser usada para enviar información a la función reductora, mediante la propiedad `payload` (`dispatch({ payload: 'valor-u-objeto' })`), tal como se muestra en la linea 26; este valor llegará a la función reductora en el parámetro action y podrá ser recuperado y procesado tal como se hace en la línea 9 en la cual se asigna el valor del `payload` al estado en su propiedad `count
+`
 
 ![uso del hook useReducer](./assets/react-useReducer.png)
-``
