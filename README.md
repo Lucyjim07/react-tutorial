@@ -341,4 +341,23 @@ En la siguiente imágen se puede ver la relación entre los 3 componentes afecta
 
 ![flujo de importación exportación elementos del contexto](./assets/react-useContext-Flow.png)
 
+### useReducer
+
+`useReducer` es similar a `useState` pero en lugar de proveer un estado y una función para asignar ese estado, este hook provee un estado y una función de despacho (dispatch function).
+
+El hook `useReducer` acepta 2 parámetros.
+
+- Una función reductora. Esta función especifíca como el estado es actualizado.
+- Un valor inicial. Este valor inicial será un objeto que puede ser modificado por la función reductora.
+- Este hook retorna el estado actual y un método para actualizar el estado.
+
+En el ejemplo mostrado a continuación se puede ver que en la línea 5 se crea el estado inicial y es asignado a una variable, este estado inicial es un objeto con toda la información necesaria.
+
+En la línea 6 se crea la función reductora que recibe el estado actual `state` y una `action` el cual determinará la acción a realizar que es manejada por un `switch` evaluando los casos del parámetro `action.type` o el tipo de la acción. Cada caso retorna un nuevo objeto con las propiedades del state original y solo modificando las propiedades necesarias según cada tipo que ha sido evaluado en los distintos casos del switch. Si el tipo no está determinado se retorna el estado sin modificaciones.
+
+En la línea 14 se ve el uso del hook `useReducer` el cual recibe por parámetro la función reductora `reducer` y el estado inicial `initialState`. Esta función retorna un arreglo que puede ser desestructurado en 2 elementos, el primero es el estado actual `state` y el segundo elemento es una función que ayuda a modificar el estado, `dispatch`.
+
+Finalmente tanto como el estado actual como la función de despacho que ayuda a modificar el estado puede ser usado en el componente. `state` al ser un objeto, se debe acceder a sus propiedades con la notación punto `state.count`. La función `dispatch` envía por parámetro un objeto con el tipo que se quiere evaluar (`dispatch({ type: 'tipo-evaluado-switch-case'})`) y posteriormente ser ejecutado por la función reductora.
+
+![uso del hook useReducer](./assets/react-useReducer.png)
 ``
