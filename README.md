@@ -316,4 +316,29 @@ El problema se presenta cuando se pasan funciones como parámetros de los compon
 Dentro del componente padre, se importa un componente hijo, el cual no cambia nunca su estado, para evitar que el componente hijo se renderice cada vez que el componente padre lo hace, se marca el componente hijo con la función `memo` tal como se ve en la línea 12 del componente hijo. Si es necesario pasar funciones desde el componente padre al componente hijo, la función es creada usando el hook `useCallback` tal como se ve en la linea 7 del componente padre. Luego la función es pasada en un atributo hacia el componente hijo y solo se actualizará cuando alguno de los elementos del arreglo de dependencias es modificado
 ![uso del hook useCallback](./assets/react-father-child-useCallback.png)
 
+### useContext
+
+El hook useContext permite acceder a la información desde cualquier componente sin la necesidad de pasarla como propiedades a ningún componente anidado en cualquier nivel que se encuentre. useContext es usado para manejar información global en una aplicación React.
+
+Para usar el hook useContext se pueden seguir los siguientes pasos:
+
+1. Crear el contexto que se quiere pasar a través de toda la aplicación.
+2. Proveer a la aplicación de React con el contexto creado.
+3. Consumir el contexto en los componentes que lo requieran.
+
+La creación del contexto se hace mediante la utilización de la función `createContext` proporcionada por React, esta funcion retorna el contexto como tal y lo único que hace falta es agregar los valores que se quieren guardar en el contexto, tal como se muestra en la línea 15; en el campo `value` se puede agregar un objeto que puede tener varias propiedades, incluidas funciones.
+
+Este contexto actúa como contenedor de todos los elementos hijos que se le pasen, de este modo, al estar encerrando a otros componentes, el contexto puede ser accesible por todos los componentes internos. Tanto el contexto como un proveedor del contexto son exportados de este archivo.
+![creación del contexto](./assets/react-useContext-AppContext.png)
+
+La configuración y aplicación del contexto se hace en el archivo principal de renderizado de la aplicación, el archivo `main.jsx`. Se importa el contexto creado anteriormente y se envuelve la aplicación con este componente, permitiendo que toda la aplicación pueda tener acceso a los valores guardados en el contexto.
+![proveer a la aplicación React con el contexto creado](./assets/react-useContext-ProvideContext.png)
+
+Finalmente desde cualquier componente que se encuentre dentro de la aplicación se puede acceder a los valores guardados dentro del contexto haciendo uso del hook `useContext` e indicando cúal es el contexto al que se quiere acceder, en este caso al contexto creado en el primer paso y de nombre `AppContext`. Se puede verificar el uso del hook en la linea 5. Desestructurando el contenido, se puede recuperar solamente los valores que necesitemos en cada uno de los componentes y luego pueden ser usados como valores para ser usados en el componente que consume el contexto.
+![consumo del contexto](./assets/react-useContext-ConsumeContext.png)
+
+En la siguiente imágen se puede ver la relación entre los 3 componentes afectados y como es el flujo de importaciones y exportaciones de los elementos usados con el hook `useContext`
+
+![flujo de importación exportación elementos del contexto](./assets/react-useContext-Flow.png)
+
 ``
