@@ -357,7 +357,9 @@ En la línea 6 se crea la función reductora que recibe el estado actual `state`
 
 En la línea 14 se ve el uso del hook `useReducer` el cual recibe por parámetro la función reductora `reducer` y el estado inicial `initialState`. Esta función retorna un arreglo que puede ser desestructurado en 2 elementos, el primero es el estado actual `state` y el segundo elemento es una función que ayuda a modificar el estado, `dispatch`.
 
-Finalmente tanto como el estado actual como la función de despacho que ayuda a modificar el estado puede ser usado en el componente. `state` al ser un objeto, se debe acceder a sus propiedades con la notación punto `state.count`. La función `dispatch` envía por parámetro un objeto con el tipo que se quiere evaluar (`dispatch({ type: 'tipo-evaluado-switch-case'})`) y posteriormente ser ejecutado por la función reductora.
+Finalmente tanto como el estado actual como la función de despacho que ayuda a modificar el estado puede ser usado en el componente. `state` al ser un objeto, se debe acceder a sus propiedades con la notación punto `state.count`. La función `dispatch` envía por parámetro un objeto con el tipo que se quiere evaluar (`dispatch({ type: 'tipo-evaluado-switch-case'})`) y posteriormente puede ser ejecutado por la función reductora.
+
+La función `dispatch` también puede ser usada para enviar información a la función reductora, mediante la propiedad `payload` (`dispatch({ payload: 'valor-u-objeto' })`), tal como se muestra en la linea 26; este valor llegará a la función reductora en el parámetro action y podrá ser recuperado y procesado tal como se hace en la línea 9 en la cual se asigna el valor del `payload` al estado en su propiedad `count`
 
 ![uso del hook useReducer](./assets/react-useReducer.png)
 ``
