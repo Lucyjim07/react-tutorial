@@ -6,6 +6,29 @@ Con React podemos describir una página web usando pequeños componentes reutili
 
 Una aplicación de React es un árbol de componentes con el componente App como raiz que junta todo.
 
+- [REACT JS](#react-js)
+  - [Componentes de React](#componentes-de-react)
+  - [Como funciona React](#como-funciona-react)
+  - [Diferencias entre una biblioteca y un framework](#diferencias-entre-una-biblioteca-y-un-framework)
+  - [Renderizado condicional](#renderizado-condicional)
+  - [Paso de propiedades de un componente padre a un componente hijo](#paso-de-propiedades-de-un-componente-padre-a-un-componente-hijo)
+    - [Componente hijo](#componente-hijo)
+    - [Componente padre](#componente-padre)
+  - [Notificar una acción desde un componente hijo hacia un componente padre.](#notificar-una-acción-desde-un-componente-hijo-hacia-un-componente-padre)
+    - [Componente padre](#componente-padre-1)
+    - [Componente hijo](#componente-hijo-1)
+  - [Componentes como hijos de otro componente.](#componentes-como-hijos-de-otro-componente)
+  - [Diferencia entre State \& Props](#diferencia-entre-state--props)
+  - [Hooks](#hooks)
+    - [useState](#usestate)
+    - [useEffect](#useeffect)
+    - [useRef](#useref)
+    - [useMemo](#usememo)
+    - [useCallback](#usecallback)
+    - [useContext](#usecontext)
+    - [useReducer](#usereducer)
+
+
 ## Componentes de React
 
 Para crear un componente en React se pueden usar clases o funciones, pero las funciones son más fáciles de escribir.
@@ -109,7 +132,7 @@ function Father() {
 
 ![relación entre componentes padre e hijo](./assets/react-father-child-relationship.png)
 
-## Escucha de eventos enviados desde un componente hijo a un componente padre. Notificar una acción desde un componente hijo hacia un componente padre.
+## Notificar una acción desde un componente hijo hacia un componente padre.
 
 Para poder escuchar desde un componente padre, eventos ejecutados dentro de un componente hijo, se deben enviar funciones que actuarán como callbacks desde el elemento padre hacia el hijo y esperar a que el hijo use esa función para finalmente notificar al componente padre que un evento ha ocurrido.
 
